@@ -1,5 +1,9 @@
+source ~/.bashrc
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/.rvm/bin
+
+export EDITOR=code
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -14,15 +18,19 @@ export ZSH_THEME="xiong-chiamiov-plus"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="dd.mm.yyyy"
 
+source $ZSH/oh-my-zsh.sh
+
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker node python sudo npm zsh-autosuggestions docker-compose)
+plugins=(git docker docker-compose python npm npx node nvm colorize rvm)
 
-source $ZSH/oh-my-zsh.sh
+source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6'
 
-alias docker-portainer='docker run --restart=always -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer --no-auth'
+alias docker-portainer='docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --label portainer-hide=true --restart=always portainer/portainer --no-auth '
 alias docker-stop-all='docker stop $(docker ps -a -q)'
 alias docker-delete-all-containers='docker rm $(docker ps -a -q)'
 alias docker-delete-all-images='docker rmi $(docker images -q)'
@@ -53,6 +61,8 @@ NC='\e[0m'
 ########################################################################
 
 # misc -----------------------------------------------------------------
+# use vi keybinds
+bindkey -e
 # no beep
 unsetopt beep
 unsetopt hist_beep
@@ -63,6 +73,8 @@ unsetopt rm_star_silent
 setopt nullglob
 # complétion menu
 setopt auto_menu
+# confirm 'rm *' etc
+setopt rm_star_wait
 # don't &proc kill on exit
 setopt auto_continue
 # don’t nice &proc
@@ -113,11 +125,7 @@ export GREP_COLOR='00;38;5;226'
 export GREP_COLORS='fn=1;34'
 
 alias ls='ls --color=auto'
-#alias dir='dir --color=auto'
-#alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
-#alias fgrep='fgrep --color=auto'
-#alias egrep='egrep --color=auto'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -al'
